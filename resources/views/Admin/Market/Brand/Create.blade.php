@@ -1,7 +1,7 @@
 @extends('Admin.layouts.master')
 
 @section('head-tag')
-<title>ایجاد دسته بندی جدید</title>
+<title>ایجاد برند جدید</title>
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12">  بخش فروش </li>
-      <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.market.category.index') }}"> دسته بندی </a> </li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی </li>
+      <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.market.category.index') }}"> برند </a> </li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page">ایجاد برند  </li>
     </ol>
   </nav>
 
@@ -21,12 +21,12 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h4>
-                    ایجاد دسته بندی
+                    ایجاد برند
                 </h4>
 
             </section>
             <section class="d-flex justify-content-between align-item-center mt-4 mb-3">
-                <a href="{{ route('admin.market.category.index') }}" class="btn btn-info btn-sm"> بازگشت</a>
+                <a href="{{ route('admin.market.brand.index') }}" class="btn btn-info btn-sm"> بازگشت</a>
 
             </section>
             <section>
@@ -34,17 +34,15 @@
                     <section class="row">
                         <section class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="">نام دسته</label>
+                                <label for="">نام برند</label>
                                 <input class="form-control form-control-sm" type="text">
                             </div>
                         </section>
                         <section class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="">دسته والد</label>
-                                <select class="form-control form-control-sm" name="" id="">
-                                    <option value="">-- دسته را انتخاب کنید--</option>
-                                    <option value="">وسایل الکترونیکی</option>
-                                </select>
+                                <label for="">لوگو</label>
+                                <input type="file" class="form-control form-control-sm">
+
                             </div>
                         </section>
                     </section>
