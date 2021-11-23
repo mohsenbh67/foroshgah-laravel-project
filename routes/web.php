@@ -45,6 +45,15 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::put('/update/{id}', 'CommentController@update')->name('admin.market.comment.update');
             Route::delete('/destroy/{id}', 'CommentController@destroy')->name('admin.market.comment.destroy');
         });
+        //Delivery
+        Route::prefix('delivery')->group(function(){
+            Route::get('/', 'DeliveryController@index')->name('admin.market.delivery.index');
+            Route::get('/create', 'DeliveryController@create')->name('admin.market.delivery.create');
+            Route::post('/store', 'DeliveryController@store')->name('admin.market.delivery.store');
+            Route::get('/edit/{id}', 'DeliveryController@edit')->name('admin.market.delivery.edit');
+            Route::put('/update/{id}', 'DeliveryController@update')->name('admin.market.delivery.update');
+            Route::delete('/destroy/{id}', 'DeliveryController@destroy')->name('admin.market.delivery.destroy');
+        });
 
     });
 
