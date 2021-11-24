@@ -76,6 +76,29 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/change-order-status', 'OrderController@changeOrderStatus')->name('admin.market.order.changeOrderStatus');
             Route::get('/cancel-order', 'OrderController@cancelOrder')->name('admin.market.order.cancelOrder');
         });
+        //Payment
+        Route::prefix('payment')->group(function(){
+            Route::get('/', 'PaymentController@index')->name('admin.market.payment.index');
+            Route::get('/online', 'PaymentController@online')->name('admin.market.payment.online');
+            Route::get('/offline', 'PaymentController@offline')->name('admin.market.payment.offline');
+            Route::get('/attendence', 'PaymentController@attendence')->name('admin.market.payment.attendence');
+            Route::get('/confirm', 'PaymentController@confirm')->name('admin.market.payment.confirm');
+
+        });
+        //Product
+        Route::prefix('product')->group(function(){
+            Route::get('/', 'ProductController@index')->name('admin.market.product.index');
+            Route::get('/create', 'ProductController@create')->name('admin.market.product.create');
+            Route::post('/store', 'ProductController@store')->name('admin.market.product.store');
+            Route::get('/edit/{id}', 'ProductController@edit')->name('admin.market.product.edit');
+            Route::put('/update/{id}', 'ProductController@update')->name('admin.market.product.update');
+            Route::delete('/destroy/{id}', 'ProductController@destroy')->name('admin.market.product.destroy');
+            //Gallery
+            Route::get('/gallery', 'GalleryController@index')->name('admin.market.gallery.index');
+            Route::post('/gallery/store', 'GalleryController@store')->name('admin.market.gallery.store');
+            Route::delete('/gallery/destroy/{id}', 'GalleryController@destroy')->name('admin.market.gallery.destroy');
+
+        });
 
 
     });
