@@ -54,6 +54,16 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::put('/update/{id}', 'DeliveryController@update')->name('admin.market.delivery.update');
             Route::delete('/destroy/{id}', 'DeliveryController@destroy')->name('admin.market.delivery.destroy');
         });
+        //Discount
+        Route::prefix('discount')->group(function(){
+            Route::get('/copan', 'DiscountController@copan')->name('admin.market.discount.copan');
+            Route::get('/copan/create', 'DiscountController@copanCreate')->name('admin.market.discount.copan.create');
+            Route::get('/common-discount', 'DiscountController@commonDiscount')->name('admin.market.discount.commonDiscount');
+            Route::get('/common-discount/create', 'DiscountController@commonDiscountCreate')->name('admin.market.discount.commonDiscount.create');
+            Route::get('/amazing-sale', 'DiscountController@amazingSale')->name('admin.market.discount.amazingSale');
+            Route::get('/amazing-sale/create', 'DiscountController@amazingSaleCreate')->name('admin.market.discount.amazingSale.create');
+        });
+
 
     });
 
