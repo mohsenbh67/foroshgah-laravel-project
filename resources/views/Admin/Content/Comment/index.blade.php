@@ -9,7 +9,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
-      <li class="breadcrumb-item font-size-12">  بخش فروش </li>
+      <li class="breadcrumb-item font-size-12">  بخش محتوا </li>
       <li class="breadcrumb-item font-size-12 active" aria-current="page">  نظرات </li>
     </ol>
   </nav>
@@ -54,7 +54,7 @@
                             <td>آیفون 12</td>
                             <td>در انتظار تایید</td>
                             <td class="width-16-rem text-left">
-                                <a href="{{ route('admin.market.comment.show') }}" class="btn btn-info btn-sm"><i class="fa fa-eye"> </i>  نمایش</a>
+                                <a href="{{ route('admin.content.comment.show') }}" class="btn btn-info btn-sm"><i class="fa fa-eye"> </i>  نمایش</a>
                                 <button type="submit" class="btn btn-success btn-sm"> <i class="fa fa-check"></i>  تایید</button>
                             </td>
                         </tr>
@@ -66,7 +66,7 @@
                             <td>آیفون 12</td>
                             <td>تایید شده</td>
                             <td class="width-16-rem text-left">
-                                <a href="{{ route('admin.market.comment.show') }}" class="btn btn-info btn-sm"><i class="fa fa-eye"> </i>  نمایش</a>
+                                <a href="{{ route('admin.content.comment.show') }}" class="btn btn-info btn-sm"><i class="fa fa-eye"> </i>  نمایش</a>
                                 <button type="submit" class="btn btn-warning btn-sm"> <i class="fa fa-clock"></i>  عدم تایید</button>
                             </td>
                         </tr>
