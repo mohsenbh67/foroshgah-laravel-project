@@ -246,9 +246,20 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::put('/update/{id}', 'SMSController@update')->name('admin.notify.sms.update');
             Route::delete('/destroy/{id}', 'SMSController@destroy')->name('admin.notify.sms.destroy');
             });
+    });
 
+    Route::prefix('ticket')->namespace('Ticket')->group(function(){
 
-
+            Route::get('/new-tickets', 'TicketController@newTickets')->name('admin.ticket.newTickets');
+            Route::get('/open-tickets', 'TicketController@openTickets')->name('admin.ticket.openTickets');
+            Route::get('/close-tickets', 'TicketController@closeTickets')->name('admin.ticket.closeTickets');
+            Route::get('/', 'TicketController@index')->name('admin.ticket.index');
+            Route::get('/show', 'TicketController@show')->name('admin.ticket.show');
+            Route::get('/create', 'TicketController@create')->name('admin.ticket.create');
+            Route::post('/store', 'TicketController@store')->name('admin.ticket.store');
+            Route::get('/edit/{id}', 'TicketController@edit')->name('admin.ticket.edit');
+            Route::put('/update/{id}', 'TicketController@update')->name('admin.ticket.update');
+            Route::delete('/destroy/{id}', 'TicketController@destroy')->name('admin.ticket.destroy');
 
     });
 
