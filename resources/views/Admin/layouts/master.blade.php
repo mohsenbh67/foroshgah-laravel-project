@@ -29,6 +29,16 @@
     @include('Admin.layouts.script')
     @yield('script')
 
+    <section class="toast-wrapper flex-row-reverse">
+        @include('Admin.Alerts.toast.error')
+        @include('Admin.Alerts.toast.success')
+
+    </section>
+
+    {{-- @include('Admin.Alerts.sweetalert.error')
+    @include('Admin.Alerts.sweetalert.success')
+    @include('Admin.Alerts.sweetalert.delete-confirm') --}}
+
 
 </body>
 </html>
