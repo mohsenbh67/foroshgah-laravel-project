@@ -14,6 +14,8 @@ class PostCategory extends Model
 
     protected $fillable =['name','description', 'slug', 'image', 'status', 'tags'];
 
+    protected $casts = ['image' => 'array'];
+
 
     public function sluggable(): array
    {
