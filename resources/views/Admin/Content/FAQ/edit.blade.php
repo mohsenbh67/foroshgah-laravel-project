@@ -1,7 +1,7 @@
 @extends('Admin.layouts.master')
 
 @section('head-tag')
-<title>ایجاد سوال جدید</title>
+<title>ویرایش سوال</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12">  بخش محتوا </li>
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.content.faq.index') }}"> سوالات متداول </a> </li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد سوال جدید </li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش سوال </li>
     </ol>
   </nav>
 
@@ -21,7 +21,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h4>
-                    ایجاد سوال جدید
+                    ویرایش سوال
                 </h4>
 
             </section>
@@ -30,13 +30,15 @@
 
             </section>
             <section>
-                <form action="{{ route('admin.content.faq.store') }}" method="POST" id="form">
+                <form action="{{ route('admin.content.faq.update', $faq->id) }}" method="POST" id="form">
                     @csrf
+                    @method('PUT')
+
                     <section class="row">
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="question">پرسش</label>
-                                <input class="form-control form-control-sm" type="text" name="question" id="question" value="{{ old('question') }}">
+                                <input class="form-control form-control-sm" type="text" name="question" id="question" value="{{ old('question', $faq->question) }}">
                             </div>
                             @error('question')
                             <span class="alert_required text-danger p-1" role="alert">
@@ -49,7 +51,7 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="tags">تگ ها</label>
-                                <input class="form-control form-control-sm" type="hidden" name="tags" id="tags" value="{{ old('tags') }}">
+                                <input class="form-control form-control-sm" type="hidden" name="tags" id="tags" value="{{ old('tags',$faq->tags) }}">
                                 <select name="" class="select2 form-control form-control-sm" id="select_tags" multiple></select>
                             </div>
                             @error('tags')
@@ -64,8 +66,8 @@
                             <div class="form-group">
                                 <label for="status">وضعیت</label>
                                 <select class="form-control form-control-sm" name="status" id="status">
-                                    <option value="0" @if (old('status') == 0) selected @endif> -- غیرفعال-- </option>
-                                    <option value="1" @if (old('status') == 1) selected @endif> -- فعال-- </option>
+                                    <option value="0" @if (old('status',$faq->status) == 0) selected @endif> -- غیرفعال-- </option>
+                                    <option value="1" @if (old('status',$faq->status) == 1) selected @endif> -- فعال-- </option>
                                 </select>
                             </div>
                             @error('status')
@@ -79,7 +81,7 @@
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="answer">پاسخ</label>
-                                <textarea name="answer" id="answer"  rows="7" class="form-control form-control-sm">{{ old('answer') }}</textarea>
+                                <textarea name="answer" id="answer"  rows="7" class="form-control form-control-sm">{{ old('answer',$faq->answer) }}</textarea>
                             </div>
                             @error('answer')
                             <span class="alert_required text-danger p-1" role="alert">

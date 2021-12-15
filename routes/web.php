@@ -151,9 +151,11 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
              Route::get('/', 'FAQController@index')->name('admin.content.faq.index');
              Route::get('/create', 'FAQController@create')->name('admin.content.faq.create');
              Route::post('/store', 'FAQController@store')->name('admin.content.faq.store');
-             Route::get('/edit/{id}', 'FAQController@edit')->name('admin.content.faq.edit');
-             Route::put('/update/{id}', 'FAQController@update')->name('admin.content.faq.update');
-             Route::delete('/destroy/{id}', 'FAQController@destroy')->name('admin.content.faq.destroy');
+             Route::get('/edit/{faq}', 'FAQController@edit')->name('admin.content.faq.edit');
+             Route::put('/update/{faq}', 'FAQController@update')->name('admin.content.faq.update');
+             Route::delete('/destroy/{faq}', 'FAQController@destroy')->name('admin.content.faq.destroy');
+             Route::get('/status/{faq}', 'FAQController@status')->name('admin.content.faq.status');
+
              });
         //Menu
          Route::prefix('menu')->group(function(){

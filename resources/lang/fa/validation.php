@@ -157,7 +157,9 @@ return [
         "priority_id"               => "اولویت",
         "category_id"               => "دسته بندی",
         "tags"                      => "تگ ها",
-        "summary"                      => "خلاصه"
+        "summary"                      => "خلاصه",
+        "question"                      => "سوال",
+        "answer"                      => "پاسخ"
 
     ],
 ];
