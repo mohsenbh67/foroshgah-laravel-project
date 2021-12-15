@@ -171,9 +171,11 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
              Route::get('/', 'PageController@index')->name('admin.content.page.index');
              Route::get('/create', 'PageController@create')->name('admin.content.page.create');
              Route::post('/store', 'PageController@store')->name('admin.content.page.store');
-             Route::get('/edit/{id}', 'PageController@edit')->name('admin.content.page.edit');
-             Route::put('/update/{id}', 'PageController@update')->name('admin.content.page.update');
-             Route::delete('/destroy/{id}', 'PageController@destroy')->name('admin.content.page.destroy');
+             Route::get('/edit/{page}', 'PageController@edit')->name('admin.content.page.edit');
+             Route::put('/update/{page}', 'PageController@update')->name('admin.content.page.update');
+             Route::delete('/destroy/{page}', 'PageController@destroy')->name('admin.content.page.destroy');
+             Route::get('/status/{page}', 'PageController@status')->name('admin.content.page.status');
+
              });
         //Post
          Route::prefix('post')->group(function(){
