@@ -1,7 +1,7 @@
 @extends('Admin.layouts.master')
 
 @section('head-tag')
-<title>ایجاد منوی جدید</title>
+<title>ویرایش منو</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12">  بخش محتوا </li>
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.content.menu.index') }}"> منوها </a> </li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد منو </li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش منو </li>
     </ol>
   </nav>
 
@@ -21,7 +21,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h4>
-                    ایجاد منو
+                    ویرایش منو
                 </h4>
 
             </section>
@@ -30,13 +30,15 @@
 
             </section>
             <section>
-                <form action="{{ route('admin.content.menu.store') }}" method="POST" id="form">
+                <form action="{{ route('admin.content.menu.update', $menu->id) }}" method="POST" id="form">
                     @csrf
+                    @method('PUT')
+
                     <section class="row">
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="name">نام منو</label>
-                                <input class="form-control form-control-sm" type="text" id="name" name="name" value="{{ old('name') }}">
+                                <input class="form-control form-control-sm" type="text" id="name" name="name" value="{{ old('name', $menu->name) }}">
                             </div>
                             @error('name')
                             <span class="alert_required text-danger p-1" role="alert">
@@ -51,8 +53,8 @@
                                 <label for="parent_id">منو والد</label>
                                 <select class="form-control form-control-sm" name="parent_id" id="parent_id">
                                     <option value="">-- منوی اصلی--</option>
-                                    @foreach ($menus as $menu)
-                                    <option value="{{ $menu->id }}" @if (old('parent_id') == $menu->id) selected @endif>{{ $menu->name }}</option>
+                                    @foreach ($parent_menus as $parent_menu)
+                                    <option value="{{ $parent_menu->id }}" @if (old('parent_id', $menu->parent_id) == $parent_menu->id) selected @endif>{{ $parent_menu->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,7 +69,7 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="url">ادرس URL</label>
-                                <input class="form-control form-control-sm" type="text" name="url" id="url" value="{{ old('url') }}">
+                                <input class="form-control form-control-sm" type="text" name="url" id="url" value="{{ old('url',$menu->url) }}">
                             </div>
                             @error('url')
                             <span class="alert_required text-danger p-1" role="alert">
@@ -81,8 +83,8 @@
                             <div class="form-group">
                                 <label for="status">وضعیت</label>
                                 <select class="form-control form-control-sm" name="status" id="status">
-                                    <option value="0" @if (old('status') == 0) selected @endif> -- غیرفعال-- </option>
-                                    <option value="1" @if (old('status') == 1) selected @endif> -- فعال-- </option>
+                                    <option value="0" @if (old('status',$menu->status) == 0) selected @endif> -- غیرفعال-- </option>
+                                    <option value="1" @if (old('status',$menu->status) == 1) selected @endif> -- فعال-- </option>
                                 </select>
                             </div>
                             @error('status')
