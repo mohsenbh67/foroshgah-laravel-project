@@ -35,9 +35,9 @@
 
     </section>
 
-    {{-- @include('Admin.Alerts.sweetalert.error')
+    @include('Admin.Alerts.sweetalert.error')
     @include('Admin.Alerts.sweetalert.success')
-    @include('Admin.Alerts.sweetalert.delete-confirm') --}}
+    {{-- @include('Admin.Alerts.sweetalert.delete-confirm') --}}
 
 
 </body>

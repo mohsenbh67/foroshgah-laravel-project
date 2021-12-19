@@ -140,11 +140,15 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
         //Comment
          Route::prefix('comment')->group(function(){
              Route::get('/', 'CommentController@index')->name('admin.content.comment.index');
-             Route::get('/show', 'CommentController@show')->name('admin.content.comment.show');
-             Route::post('/store', 'CommentController@store')->name('admin.content.comment.store');
-             Route::get('/edit/{id}', 'CommentController@edit')->name('admin.content.comment.edit');
-             Route::put('/update/{id}', 'CommentController@update')->name('admin.content.comment.update');
-             Route::delete('/destroy/{id}', 'CommentController@destroy')->name('admin.content.comment.destroy');
+             Route::get('/show/{comment}', 'CommentController@show')->name('admin.content.comment.show');
+            //  Route::post('/store', 'CommentController@store')->name('admin.content.comment.store');
+            //  Route::get('/edit/{comment}', 'CommentController@edit')->name('admin.content.comment.edit');
+            //  Route::put('/update/{comment}', 'CommentController@update')->name('admin.content.comment.update');
+             Route::delete('/destroy/{comment}', 'CommentController@destroy')->name('admin.content.comment.destroy');
+             Route::get('/approved/{comment}', 'CommentController@approved')->name('admin.content.comment.approved');
+             Route::get('/status/{comment}', 'CommentController@status')->name('admin.content.comment.status');
+             Route::post('/answer/{comment}', 'CommentController@answer')->name('admin.content.comment.answer');
+
              });
         //FAQ
          Route::prefix('faq')->group(function(){
