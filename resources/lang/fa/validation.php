@@ -159,6 +159,7 @@ return [
         "tags"                      => "تگ ها",
         "summary"                      => "خلاصه",
         "question"                      => "سوال",
+        "subject"                      => "عنوان",
         "answer"                      => "پاسخ"
 
     ],

@@ -25,6 +25,11 @@
 
             </section>
 
+            @include('Admin.Alerts.alert-section.success')
+            @include('Admin.Alerts.alert-section.warning')
+            @include('Admin.Alerts.alert-section.info')
+            @include('Admin.Alerts.alert-section.error')
+
             <section class="d-flex justify-content-between align-item-center mt-4 mb-3">
                 <a href="{{ route('admin.notify.email.create') }}" class="btn btn-info btn-sm"> ایجاد ایمیل جدید</a>
                 <div class="max-width-16-rem">
@@ -38,20 +43,36 @@
                         <tr>
                             <th>#</th>
                             <th>عنوان اطلاعیه</th>
+                            <th>متن پیام</th>
                             <th>تاریخ ارسال</th>
+                            <th>وضعیت</th>
                             <th class="max-width-16-rem text-center"> <i class="fa fa-cogs"></i>  تنظیمات  </th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($emails as $key =>$email )
+
                         <tr>
-                            <th>1</th>
-                            <td>فروش ویژه بهاری</td>
-                            <td>24 اردیبهشت 99</td>
+                            <th>{{ $key+1 }}</th>
+                            <td>{{ $email->subject }}</td>
+                            <td>{{ Str::limit($email->body, 10) }} </td>
+                            <td>{{ jalaliDate($email->published_at, 'H:i:s Y-m-d') }} </td>
+                            <td>
+                                <label>
+                                    <input id="{{ $email->id }}" onchange="changeStatus({{ $email->id }})" data-url="{{ route('admin.notify.email.status',$email->id ) }}" type="checkbox" @if ($email->status === 1)
+                                        checked
+                                    @endif>
+                                </label>
+                            </td>
                             <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"> </i>  ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"></i>  حذف</button>
+                                <a href="{{ route('admin.notify.email.edit', $email->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"> </i>  ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm delete"> <i class="fa fa-trash-alt"></i>  حذف</button></form>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </section>
@@ -63,3 +84,91 @@
 
 
 @endsection
+
+@section('script')
+
+<script type="text/javascript">
+    function changeStatus (id) {
+        var element = $('#'+ id)
+        var url = element.attr('data-url')
+        var elementValue = !element.prop('checked');
+
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+                if(response.status){
+                    if(response.checked){
+                        element.prop('checked', true);
+                        successToast('ایمیل با موفقیت فعال شد')
+                    }
+                    else{
+                        element.prop('checked', false);
+                        successToast('ایمیل با موفقیت غیر فعال شد')
+
+                    }
+                }
+                  else{
+                    element.prop('checked', elementValue);
+                    errorToast('مشکلی پیش آمده است!!')
+
+                }
+
+
+            },
+
+            error:function(){
+                errorToast('مشکلی پیش آمده است!!');
+            }
+        });
+
+        function successToast(message) {
+
+            var successToastTag = '<section class="toast" data-delay="5000">\n' +
+                '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">'+message +'</strong>\n' +
+                    '<button class="mr-2 close" type="button" data-dismiss="toast" aria-label="Close">\n' +
+                        '<span aria-hidden="true">&times;</span>\n' +
+                        '</button>\n' +
+                        '</section>\n'
+                        '</section>';
+
+
+                    $('.toast-wrapper').append(successToastTag);
+                    $('.toast').toast('show').delay(5500).queue(function(){
+                        $(this).remove();
+
+                    })
+
+          }
+
+        function errorToast(message) {
+
+            var errorToastTag = '<section class="toast" data-delay="5000">\n' +
+                '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">'+message +'</strong>\n' +
+                    '<button class="mr-2 close" type="button" data-dismiss="toast" aria-label="Close">\n' +
+                        '<span aria-hidden="true">&times;</span>\n' +
+                        '</button>\n' +
+                        '</section>\n'
+                        '</section>';
+
+
+                    $('.toast-wrapper').append(errorToastTag);
+                    $('.toast').toast('show').delay(5500).queue(function(){
+                        $(this).remove();
+
+                    })
+
+          }
+
+
+    }
+
+</script>
+
+@include('Admin.Alerts.sweetalert.delete-confirm', ['className' => 'delete'])
+
+@endsection
+

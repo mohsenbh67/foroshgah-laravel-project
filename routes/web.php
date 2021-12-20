@@ -247,18 +247,22 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/', 'EmailController@index')->name('admin.notify.email.index');
             Route::get('/create', 'EmailController@create')->name('admin.notify.email.create');
             Route::post('/store', 'EmailController@store')->name('admin.notify.email.store');
-            Route::get('/edit/{id}', 'EmailController@edit')->name('admin.notify.email.edit');
-            Route::put('/update/{id}', 'EmailController@update')->name('admin.notify.email.update');
-            Route::delete('/destroy/{id}', 'EmailController@destroy')->name('admin.notify.email.destroy');
+            Route::get('/edit/{email}', 'EmailController@edit')->name('admin.notify.email.edit');
+            Route::put('/update/{email}', 'EmailController@update')->name('admin.notify.email.update');
+            Route::delete('/destroy/{email}', 'EmailController@destroy')->name('admin.notify.email.destroy');
+            Route::get('/status/{email}', 'EmailController@status')->name('admin.notify.email.status');
+
             });
         //SMS
          Route::prefix('sms')->group(function(){
             Route::get('/', 'SMSController@index')->name('admin.notify.sms.index');
             Route::get('/create', 'SMSController@create')->name('admin.notify.sms.create');
             Route::post('/store', 'SMSController@store')->name('admin.notify.sms.store');
-            Route::get('/edit/{id}', 'SMSController@edit')->name('admin.notify.sms.edit');
-            Route::put('/update/{id}', 'SMSController@update')->name('admin.notify.sms.update');
-            Route::delete('/destroy/{id}', 'SMSController@destroy')->name('admin.notify.sms.destroy');
+            Route::get('/edit/{sms}', 'SMSController@edit')->name('admin.notify.sms.edit');
+            Route::put('/update/{sms}', 'SMSController@update')->name('admin.notify.sms.update');
+            Route::delete('/destroy/{sms}', 'SMSController@destroy')->name('admin.notify.sms.destroy');
+            Route::get('/status/{sms}', 'SMSController@status')->name('admin.notify.sms.status');
+
             });
     });
 

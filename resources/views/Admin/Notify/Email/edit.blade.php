@@ -1,7 +1,7 @@
 @extends('Admin.layouts.master')
 
 @section('head-tag')
-<title>ایجاد ایمیل جدید</title>
+<title>ویرایش ایمیل</title>
 <link rel="stylesheet" href="{{ asset('Admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 
 @endsection
@@ -13,7 +13,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12">  اطلاع رسانی </li>
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.notify.email.index') }}"> اطلاعیه ایمیلی </a> </li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد ایمیل جدید </li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش ایمیل </li>
     </ol>
   </nav>
 
@@ -32,14 +32,15 @@
 
             </section>
             <section>
-                <form action="{{ route('admin.notify.email.store') }}" method="POST">
+                <form action="{{ route('admin.notify.email.update',$email->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <section class="row">
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="subject">عنوان ایمیل</label>
                                 <input class="form-control form-control-sm" type="text" name="subject" id="subject"
-                                    value="{{ old('subject') }}">
+                                    value="{{ old('subject',$email->subject) }}">
                             </div>
                             @error('subject')
                                 <span class="alert_required text-danger p-1" role="alert">
@@ -53,8 +54,8 @@
                             <div class="form-group">
                                 <label for="published_at">تاریخ انتشار</label>
                                 <input class="form-control form-control-sm" type="text" name="published_at"
-                                    id="published_at" style="display: none">
-                                <input class="form-control form-control-sm" type="text" id="published_at_view">
+                                    id="published_at" style="display: none" value="{{ old('published_at',$email->published_at) }}">
+                                <input class="form-control form-control-sm" type="text" id="published_at_view" value="{{ old('published_at',$email->published_at) }}">
                             </div>
                             @error('published_at')
                                 <span class="alert_required text-danger p-1" role="alert">
@@ -84,7 +85,7 @@
                             <div class="form-group">
                                 <label for="">متن ایمیل</label>
                                 <textarea name="body" id="body" rows="7"
-                                    class="form-control form-control-sm">{{ old('body') }}</textarea>
+                                    class="form-control form-control-sm">{{ old('body',$email->body) }}</textarea>
                             </div>
                             @error('body')
                                 <span class="alert_required text-danger p-1" role="alert">
