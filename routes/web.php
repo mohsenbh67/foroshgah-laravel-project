@@ -285,11 +285,8 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
     Route::prefix('setting')->namespace('Setting')->group(function(){
 
         Route::get('/', 'SettingController@index')->name('admin.setting.index');
-        Route::get('/create', 'SettingController@create')->name('admin.setting.create');
-        Route::post('/store', 'SettingController@store')->name('admin.setting.store');
-        Route::get('/edit/{id}', 'SettingController@edit')->name('admin.setting.edit');
-        Route::put('/update/{id}', 'SettingController@update')->name('admin.setting.update');
-        Route::delete('/destroy/{id}', 'SettingController@destroy')->name('admin.setting.destroy');
+        Route::get('/edit/{setting}', 'SettingController@edit')->name('admin.setting.edit');
+        Route::put('/update/{setting}', 'SettingController@update')->name('admin.setting.update');
 
 
 

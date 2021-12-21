@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
-use App\Http\Controllers\Controller;
-use App\Models\Setting\Setting;
-use Database\Seeders\SettingsSeeder;
 use Illuminate\Http\Request;
+use App\Models\Setting\Setting;
+use App\Http\Controllers\Controller;
+use Database\Seeders\SettingsSeeder;
+use App\Http\Services\Image\ImageService;
+use App\Http\Requests\Admin\Setting\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -20,6 +22,7 @@ class SettingController extends Controller
         if ($setting === null) {
             $default = new SettingsSeeder();
             $default->run();
+            $setting = Setting::first();
         }
        return view('admin.setting.index', compact('setting'));
     }
@@ -62,9 +65,9 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Setting $setting)
     {
-        //
+        return view('Admin.Setting.edit',compact('setting'));
     }
 
     /**
@@ -74,9 +77,42 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SettingRequest $request, Setting $setting, ImageService $imageService)
     {
-        //
+        $inputs = $request->all();
+
+        if($request->hasFile('logo'))
+        {
+            if(!empty($setting->logo))
+            {
+                $imageService->deleteDirectoryAndFiles($setting->logo);
+            }
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'setting');
+            $imageService->setImageName('logo');
+            $result = $imageService->save($request->file('logo'));
+            if($result === false)
+            {
+                return redirect()->route('admin.setting.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+            }
+            $inputs['logo'] = $result;
+        }
+        if($request->hasFile('icon'))
+        {
+            if(!empty($setting->icon))
+            {
+                $imageService->deleteDirectoryAndFiles($setting->icon);
+            }
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'setting');
+            $imageService->setImageName('icon');
+            $result = $imageService->save($request->file('icon'));
+            if($result === false)
+            {
+                return redirect()->route('admin.setting.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+            }
+            $inputs['icon'] = $result;
+        }
+        $setting ->update($inputs);
+        return redirect()->route('admin.setting.index')->with('swal-success', 'تنظیمات با موفقیت ویرایش شد');
     }
 
     /**
