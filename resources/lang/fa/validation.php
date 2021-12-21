@@ -160,6 +160,9 @@ return [
         "summary"                      => "خلاصه",
         "question"                      => "سوال",
         "subject"                      => "عنوان",
+        "logo"                      => "لوگو",
+        "icon"                      => "آیکون",
+        "keywords"                      => "کلمات کلیدی",
         "answer"                      => "پاسخ"
 
     ],
