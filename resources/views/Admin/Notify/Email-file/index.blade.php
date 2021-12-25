@@ -1,7 +1,7 @@
 @extends('Admin.layouts.master')
 
 @section('head-tag')
-<title>اطلاعیه ایمیلی</title>
+<title>فایل های ایمیل</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,8 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12">  اطلاع رسانی </li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> اطلاعیه ایمیلی </li>
+      <li class="breadcrumb-item font-size-12"><a href="{{ route('admin.notify.email.index') }}">   اطلاع رسانی ایمیلی </a></li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> فایل ها </li>
     </ol>
   </nav>
 
@@ -20,7 +21,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h4>
-                    اطلاعیه ایمیلی
+                    فایل ها
                 </h4>
 
             </section>
@@ -31,7 +32,7 @@
             @include('Admin.Alerts.alert-section.error')
 
             <section class="d-flex justify-content-between align-item-center mt-4 mb-3">
-                <a href="{{ route('admin.notify.email.create') }}" class="btn btn-info btn-sm"> ایجاد ایمیل جدید</a>
+                <a href="{{ route('admin.notify.email-file.create', $email->id ) }}" class="btn btn-info btn-sm"> ایجاد فایل</a>
                 <div class="max-width-16-rem">
                     <input type="text"  class="form-control form-control-sm form-text" name="" id="" placeholder="جستجو...">
                 </div>
@@ -42,32 +43,31 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>عنوان اطلاعیه</th>
-                            <th>متن پیام</th>
-                            <th>تاریخ ارسال</th>
+                            <th>عنوان ایمیل</th>
+                            <th>سایز فایل</th>
+                            <th>نوع فایل</th>
                             <th>وضعیت</th>
                             <th class="max-width-16-rem text-center"> <i class="fa fa-cogs"></i>  تنظیمات  </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($emails as $key =>$email )
+                        @foreach ($email->files as $key =>$file )
 
                         <tr>
                             <th>{{ $key+1 }}</th>
                             <td>{{ $email->subject }}</td>
-                            <td>{{ Str::limit($email->body, 10) }} </td>
-                            <td>{{ jalaliDate($email->published_at, 'H:i:s Y-m-d') }} </td>
+                            <td>{{ $file->file_size }} </td>
+                            <td>{{ $file->file_type }} </td>
                             <td>
                                 <label>
-                                    <input id="{{ $email->id }}" onchange="changeStatus({{ $email->id }})" data-url="{{ route('admin.notify.email.status',$email->id ) }}" type="checkbox" @if ($email->status === 1)
+                                    <input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})" data-url="{{ route('admin.notify.email-file.status',$file->id ) }}" type="checkbox" @if ($file->status === 1)
                                         checked
                                     @endif>
                                 </label>
                             </td>
                             <td class="width-22-rem text-left">
-                                <a href="{{ route('admin.notify.email-file.index', $email->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-file"> </i> فایل های ضمیمه شده</a>
-                                <a href="{{ route('admin.notify.email.edit', $email->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"> </i>  ویرایش</a>
-                                <form class="d-inline" action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
+                                <a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"> </i>  ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm delete"> <i class="fa fa-trash-alt"></i>  حذف</button></form>
@@ -102,11 +102,11 @@
                 if(response.status){
                     if(response.checked){
                         element.prop('checked', true);
-                        successToast('ایمیل با موفقیت فعال شد')
+                        successToast('فایل ایمیل با موفقیت فعال شد')
                     }
                     else{
                         element.prop('checked', false);
-                        successToast('ایمیل با موفقیت غیر فعال شد')
+                        successToast('فایل ایمیل با موفقیت غیر فعال شد')
 
                     }
                 }

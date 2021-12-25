@@ -36,31 +36,35 @@ class FileService extends FileToolsService
         if(file_exists($filePath))
         {
             unlink($filePath);
+            return true;
         }
-    }
-
-
-    public function deleteDirectoryAndFiles($directory)
-    {
-        if(!is_dir($directory))
-        {
+        else{
             return false;
         }
-
-        $files = glob($directory . DIRECTORY_SEPARATOR . '*', GLOB_MARK);
-        foreach($files as $file)
-        {
-            if(is_dir($file))
-            {
-                $this->deleteDirectoryAndFiles($file);
-            }
-            else{
-                unlink($file);
-            }
-        }
-        $result = rmdir($directory);
-        return $result;
     }
+
+
+    // public function deleteDirectoryAndFiles($directory)
+    // {
+    //     if(!is_dir($directory))
+    //     {
+    //         return false;
+    //     }
+
+    //     $files = glob($directory . DIRECTORY_SEPARATOR . '*', GLOB_MARK);
+    //     foreach($files as $file)
+    //     {
+    //         if(is_dir($file))
+    //         {
+    //             $this->deleteDirectoryAndFiles($file);
+    //         }
+    //         else{
+    //             unlink($file);
+    //         }
+    //     }
+    //     $result = rmdir($directory);
+    //     return $result;
+    // }
 
 
 }
