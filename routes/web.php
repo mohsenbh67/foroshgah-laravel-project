@@ -207,18 +207,23 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/', 'AdminUserController@index')->name('admin.user.admin-user.index');
             Route::get('/create', 'AdminUserController@create')->name('admin.user.admin-user.create');
             Route::post('/store', 'AdminUserController@store')->name('admin.user.admin-user.store');
-            Route::get('/edit/{id}', 'AdminUserController@edit')->name('admin.user.admin-user.edit');
-            Route::put('/update/{id}', 'AdminUserController@update')->name('admin.user.admin-user.update');
-            Route::delete('/destroy/{id}', 'AdminUserController@destroy')->name('admin.user.admin-user.destroy');
+            Route::get('/edit/{admin}', 'AdminUserController@edit')->name('admin.user.admin-user.edit');
+            Route::put('/update/{admin}', 'AdminUserController@update')->name('admin.user.admin-user.update');
+            Route::delete('/destroy/{admin}', 'AdminUserController@destroy')->name('admin.user.admin-user.destroy');
+            Route::get('/activation/{user}', 'AdminUserController@activation')->name('admin.user.admin-user.activation');
+            Route::get('/status/{user}', 'AdminUserController@status')->name('admin.user.admin-user.status');
+
             });
         //Customer
          Route::prefix('customer')->group(function(){
             Route::get('/', 'CustomerController@index')->name('admin.user.customer.index');
             Route::get('/create', 'CustomerController@create')->name('admin.user.customer.create');
             Route::post('/store', 'CustomerController@store')->name('admin.user.customer.store');
-            Route::get('/edit/{id}', 'CustomerController@edit')->name('admin.user.customer.edit');
-            Route::put('/update/{id}', 'CustomerController@update')->name('admin.user.customer.update');
-            Route::delete('/destroy/{id}', 'CustomerController@destroy')->name('admin.user.customer.destroy');
+            Route::get('/edit/{user}', 'CustomerController@edit')->name('admin.user.customer.edit');
+            Route::put('/update/{user}', 'CustomerController@update')->name('admin.user.customer.update');
+            Route::delete('/destroy/{user}', 'CustomerController@destroy')->name('admin.user.customer.destroy');
+            Route::get('/activation/{user}', 'CustomerController@activation')->name('admin.user.customer.activation');
+            Route::get('/status/{user}', 'CustomerController@status')->name('admin.user.customer.status');
             });
         //Role
          Route::prefix('role')->group(function(){

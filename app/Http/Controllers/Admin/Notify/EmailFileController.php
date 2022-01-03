@@ -97,7 +97,7 @@ class EmailFileController extends Controller
     public function update(EmailFileRequest $request, EmailFile $file, FileService $fileService)
     {
         $inputs = $request->all();
-        if ($request->hasFile('file')) {
+    if ($request->hasFile('file')) {
            if(!empty($file->file_path)){
                $fileService->deleteFile($file->file_path);
            }
@@ -106,7 +106,7 @@ class EmailFileController extends Controller
            $fileSize = $fileService->getFileSize();
            $result = $fileService->moveToPublic($request->file('file'));
            $fileFormat = $fileService->getFileFormat();
-        }
+
 
         if ($result === false) {
 
@@ -117,6 +117,7 @@ class EmailFileController extends Controller
         $inputs['file_path'] = $result;
         $inputs['file_size'] = $fileSize;
         $inputs['file_type'] = $fileFormat;
+    }
         $file->update($inputs);
         return redirect()->route('admin.notify.email-file.index', $file->email->id)->with('alert-section-success', ' فایل شما با موفقیت ویرایش شد');
     }
