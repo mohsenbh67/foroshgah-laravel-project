@@ -51,6 +51,13 @@
                                 <label for="body">پاسخ ادمین</label>
                                 <textarea name="body" id="body" rows="4" class="form-control form-control-sm"></textarea>
                             </div>
+                            @error('body')
+                            <span class="alert_required text-danger p-1 my-2" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
                         </section>
                     </section>
                     <section class="col-12 text-center">

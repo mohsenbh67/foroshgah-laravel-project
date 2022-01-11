@@ -1,17 +1,17 @@
-@extends('Admin.layouts.master')
+@extends('admin.layouts.master')
 
 @section('head-tag')
-<title>نمایش تیکت</title>
+<title>نمایش تیکت ها</title>
 @endsection
 
 @section('content')
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
-      <li class="breadcrumb-item font-size-12">  تیکت ها </li>
-      <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.ticket.index') }}"> تیکت </a> </li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page">نمایش تیکت  </li>
+      <li class="breadcrumb-item font-size-12"> <a href="#"> خانه</a></li>
+      <li class="breadcrumb-item font-size-12"> <a href="#"> بخش تیکت ها</a></li>
+      <li class="breadcrumb-item font-size-12"> <a href="#"> تیکت ها</a></li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> نمایش تیکت ها</li>
     </ol>
   </nav>
 
@@ -20,50 +20,55 @@
     <section class="col-12">
         <section class="main-body-container">
             <section class="main-body-container-header">
-                <h4>
-                    نمایش تیکت
-                </h4>
-
+                <h5>
+                نمایش تیکت ها
+                </h5>
             </section>
-            <section class="d-flex justify-content-between align-item-center mt-4 mb-3">
-                <a href="{{ route('admin.ticket.index') }}" class="btn btn-info btn-sm"> بازگشت</a>
 
+            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+                <a href="{{ route('admin.ticket.index') }}" class="btn btn-info btn-sm">بازگشت</a>
             </section>
+
             <section class="card mb-3">
-                <section class="card-header text-white bg-primary">
-                    محسن بهروزی - 1232333
+                <section class="card-header text-white bg-custom-pink">
+                      {{ $ticket->user->full_name  }} - {{ $ticket->id }}
                 </section>
                 <section class="card-body">
-                    <h5 class="card-title">مشخصات کالا : ساعت هوشمند apple watch کد کالا : 8974938</h5>
-                    <p class="card-text">به نظر من ساعت خوبیه ولی تنها مشکلی که داره اینه که وزنش زیاده و زود شارژش تموم میشه!</p>
+                    <h5 class="card-title">موضوع :
+                    {{ $ticket->subject }}
+                    </h5>
+                    <p class="card-text">
+                        {{ $ticket->description }}
+                    </p>
                 </section>
-
             </section>
 
             <section>
-                <form action="" method="">
+                <form action="{{ route('admin.ticket.answer', $ticket->id) }}" method="POST">
+                    @csrf
                     <section class="row">
-                        <section class="col-12 ">
+                        <section class="col-12">
                             <div class="form-group">
-                                <label for="">پاسخ تیکت</label>
-                                <textarea name="" id="" rows="4" class="form-control form-control-sm"></textarea>
+                                <label for="">پاسخ تیکت </label>
+                               ‍<textarea class="form-control form-control-sm" rows="4" name="description">{{ old('description') }}</textarea>
                             </div>
+                            @error('description')
+                            <span class="alert_required text-danger p-1 my-2" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
+                        </section>
+                        <section class="col-12">
+                            <button class="btn btn-primary btn-sm">ثبت</button>
                         </section>
                     </section>
-                    <section class="col-12 text-center">
-                        <button class="btn btn-primary btn-sm">
-                            ثبت
-                        </button>
-                    </section>
-
                 </form>
             </section>
-
 
         </section>
     </section>
 </section>
-
-
 
 @endsection
