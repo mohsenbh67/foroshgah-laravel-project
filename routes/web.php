@@ -218,9 +218,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/', 'RoleController@index')->name('admin.user.role.index');
             Route::get('/create', 'RoleController@create')->name('admin.user.role.create');
             Route::post('/store', 'RoleController@store')->name('admin.user.role.store');
-            Route::get('/edit/{id}', 'RoleController@edit')->name('admin.user.role.edit');
-            Route::put('/update/{id}', 'RoleController@update')->name('admin.user.role.update');
-            Route::delete('/destroy/{id}', 'RoleController@destroy')->name('admin.user.role.destroy');
+            Route::get('/edit/{role}', 'RoleController@edit')->name('admin.user.role.edit');
+            Route::put('/update/{role}', 'RoleController@update')->name('admin.user.role.update');
+            Route::delete('/destroy/{role}', 'RoleController@destroy')->name('admin.user.role.destroy');
+            Route::get('/permission-form/{role}', 'RoleController@permissionForm')->name('admin.user.role.permission-form');
+            Route::put('/permission-update/{role}', 'RoleController@permissionUpdate')->name('admin.user.role.permission-update');
+
+
         });
         //Permission
         Route::prefix('permission')->group(function () {
