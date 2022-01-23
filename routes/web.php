@@ -45,14 +45,15 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::put('/update/{id}', 'CommentController@update')->name('admin.market.comment.update');
             Route::delete('/destroy/{id}', 'CommentController@destroy')->name('admin.market.comment.destroy');
         });
-        //Delivery
+        //delivery
         Route::prefix('delivery')->group(function () {
             Route::get('/', 'DeliveryController@index')->name('admin.market.delivery.index');
             Route::get('/create', 'DeliveryController@create')->name('admin.market.delivery.create');
             Route::post('/store', 'DeliveryController@store')->name('admin.market.delivery.store');
-            Route::get('/edit/{id}', 'DeliveryController@edit')->name('admin.market.delivery.edit');
-            Route::put('/update/{id}', 'DeliveryController@update')->name('admin.market.delivery.update');
-            Route::delete('/destroy/{id}', 'DeliveryController@destroy')->name('admin.market.delivery.destroy');
+            Route::get('/edit/{delivery}', 'DeliveryController@edit')->name('admin.market.delivery.edit');
+            Route::put('/update/{delivery}', 'DeliveryController@update')->name('admin.market.delivery.update');
+            Route::delete('/destroy/{delivery}', 'DeliveryController@destroy')->name('admin.market.delivery.destroy');
+            Route::get('/status/{delivery}', 'DeliveryController@status')->name('admin.market.delivery.status');
         });
         //Discount
         Route::prefix('discount')->group(function () {
@@ -145,6 +146,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/status/{comment}', 'CommentController@status')->name('admin.content.comment.status');
             Route::post('/answer/{comment}', 'CommentController@answer')->name('admin.content.comment.answer');
         });
+
+
         //FAQ
         Route::prefix('faq')->group(function () {
             Route::get('/', 'FAQController@index')->name('admin.content.faq.index');
@@ -223,8 +226,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/destroy/{role}', 'RoleController@destroy')->name('admin.user.role.destroy');
             Route::get('/permission-form/{role}', 'RoleController@permissionForm')->name('admin.user.role.permission-form');
             Route::put('/permission-update/{role}', 'RoleController@permissionUpdate')->name('admin.user.role.permission-update');
-
-
         });
         //Permission
         Route::prefix('permission')->group(function () {
@@ -310,7 +311,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('/show/{ticket}', 'TicketController@show')->name('admin.ticket.show');
         Route::post('/answer/{ticket}', 'TicketController@answer')->name('admin.ticket.answer');
         Route::get('/change/{ticket}', 'TicketController@change')->name('admin.ticket.change');
-
     });
 
     //Setting

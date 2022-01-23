@@ -163,7 +163,10 @@ return [
         "logo"                      => "لوگو",
         "icon"                      => "آیکون",
         "keywords"                      => "کلمات کلیدی",
-        "answer"                      => "پاسخ"
+        "answer"                      => "پاسخ",
+        'amount' => 'هزینه',
+        'delivery_time' => 'زمان ارسال',
+        'delivery_time_unit' => 'واحد زمان ارسال',
 
     ],
 ];
