@@ -22,9 +22,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/', 'CategoryController@index')->name('admin.market.category.index');
             Route::get('/create', 'CategoryController@create')->name('admin.market.category.create');
             Route::post('/store', 'CategoryController@store')->name('admin.market.category.store');
-            Route::get('/edit/{id}', 'CategoryController@edit')->name('admin.market.category.edit');
-            Route::put('/update/{id}', 'CategoryController@update')->name('admin.market.category.update');
-            Route::delete('/destroy/{id}', 'CategoryController@destroy')->name('admin.market.category.destroy');
+            Route::get('/edit/{productCategory}', 'CategoryController@edit')->name('admin.market.category.edit');
+            Route::put('/update/{productCategory}', 'CategoryController@update')->name('admin.market.category.update');
+            Route::delete('/destroy/{productCategory}', 'CategoryController@destroy')->name('admin.market.category.destroy');
+            Route::get('/status/{productCategory}', 'CategoryController@status')->name('admin.market.category.status');
+            Route::get('/show-in-menu/{productCategory}', 'CategoryController@showInMenu')->name('admin.market.category.show-in-menu');
         });
 
         //Brand
