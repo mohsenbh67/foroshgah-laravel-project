@@ -8,7 +8,7 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
+      <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش تیکت ها</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">دسته بندی</a></li>
       <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی</li>
@@ -40,7 +40,7 @@
                                 <input type="text" class="form-control form-control-sm" name="name" id="name" value="{{ old('name') }}">
                             </div>
                             @error('name')
-                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <span class="alert_required text-danger p-1" role="alert">
                                     <strong>
                                         {{ $message }}
                                     </strong>
@@ -59,7 +59,7 @@
                                 </select>
                             </div>
                             @error('status')
-                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <span class="alert_required text-danger p-1" role="alert">
                                 <strong>
                                     {{ $message }}
                                 </strong>
