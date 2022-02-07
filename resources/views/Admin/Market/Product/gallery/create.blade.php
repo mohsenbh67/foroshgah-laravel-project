@@ -41,7 +41,7 @@
                                 <input type="file" name="image" class="form-control form-control-sm">
                             </div>
                             @error('image')
-                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <span class="alert_required text-danger p-1" role="alert">
                                 <strong>
                                     {{ $message }}
                                 </strong>
