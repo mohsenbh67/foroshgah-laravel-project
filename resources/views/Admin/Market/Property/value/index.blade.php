@@ -23,6 +23,9 @@
                     مقدار فرم کالا
                 </h5>
             </section>
+            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+                <a href="{{ route('admin.market.property.index') }}" class="btn btn-info btn-sm">بازگشت</a>
+            </section>
 
             <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                 <a href="{{ route('admin.market.value.create', $categoryAttribute->id) }}" class="btn btn-info btn-sm">ایجاد مقدار فرم کالا جدید</a>
@@ -55,8 +58,8 @@
                             <td>{{ json_decode($value->value)->price_increase }}</td>
                             <td>{{ $value->type == 0 ? 'ساده' : 'انتخابی'}}</td>
                             <td class="width-22-rem text-left">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline" action="" method="post">
+                                <a href="{{ route('admin.market.value.edit', ['categoryAttribute' => $categoryAttribute->id, 'value' => $value->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.market.value.destroy', ['categoryAttribute' => $categoryAttribute->id, 'value' => $value->id]) }}" method="post">
                                     @csrf
                                     {{ method_field('delete') }}
                                 <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>

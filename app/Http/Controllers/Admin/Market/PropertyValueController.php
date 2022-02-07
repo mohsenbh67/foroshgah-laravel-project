@@ -62,9 +62,10 @@ class PropertyValueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryAttribute $categoryAttribute, CategoryValue $value)
     {
-        //
+        return view('admin.market.property.value.edit', compact('categoryAttribute', 'value'));
+
     }
 
     /**
@@ -74,9 +75,13 @@ class PropertyValueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryValueRequest $request ,CategoryAttribute $categoryAttribute, CategoryValue $value)
     {
-        //
+        $inputs = $request->all();
+        $inputs['value'] = json_encode(['value' => $request->value, 'price_increase' => $request->price_increase]);
+        $inputs['category_attribute_id'] = $categoryAttribute->id;
+        $value->update($inputs);
+        return redirect()->route('admin.market.value.index', $categoryAttribute->id)->with('swal-success', 'مقدار فرم کالای جدید  با موفقیت ویرایش شد');
     }
 
     /**
@@ -85,8 +90,9 @@ class PropertyValueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryAttribute $categoryAttribute, CategoryValue $value)
     {
-        //
+        $result = $value->delete();
+        return redirect()->route('admin.market.value.index', $categoryAttribute->id)->with('swal-success', 'مقدار فرن کالای شما با موفقیت حذف شد');
     }
 }
