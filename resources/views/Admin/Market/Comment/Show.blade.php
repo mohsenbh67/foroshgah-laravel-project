@@ -31,23 +31,33 @@
             </section>
             <section class="card mb-3">
                 <section class="card-header text-white bg-custom-yellow">
-                    محسن بهروزی - 1232333
+                    {{ $comment->user->full_name }} - {{ $comment->user->id }}
                 </section>
                 <section class="card-body">
-                    <h5 class="card-title">مشخصات کالا : ساعت هوشمند apple watch کد کالا : 8974938</h5>
-                    <p class="card-text">به نظر من ساعت خوبیه ولی تنها مشکلی که داره اینه که وزنش زیاده و زود شارژش تموم میشه!</p>
+                    <h5 class="card-title">کد پست:{{ $comment->commentable->id }}  مشخصات: {{ $comment->commentable->title }}</h5>
+                    <p class="card-text">{{ $comment->body }}</p>
                 </section>
 
             </section>
 
+
+            @if ($comment->parent_id == null)
             <section>
-                <form action="" method="">
+                <form action="{{ route('admin.market.comment.answer', $comment->id) }}" method="POST">
+                    @csrf
                     <section class="row">
                         <section class="col-12 ">
                             <div class="form-group">
-                                <label for="">پاسخ ادمین</label>
-                                <textarea name="" id="" rows="4" class="form-control form-control-sm"></textarea>
+                                <label for="body">پاسخ ادمین</label>
+                                <textarea name="body" id="body" rows="4" class="form-control form-control-sm"></textarea>
                             </div>
+                            @error('body')
+                            <span class="alert_required text-danger p-1 my-2" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
                         </section>
                     </section>
                     <section class="col-12 text-center">
@@ -58,6 +68,7 @@
 
                 </form>
             </section>
+            @endif
 
 
         </section>
