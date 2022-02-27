@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>کوپن تخفیف</title>
+<title>تخفیف عمومی</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page">کوپن تخفیف</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page">تخفیف عمومی</li>
     </ol>
   </nav>
 
@@ -20,12 +20,12 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-               کوپن تخفیف
+               تخفیف عمومی
                 </h5>
             </section>
 
             <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                <a href="{{ route('admin.market.discount.copan.create') }}" class="btn btn-info btn-sm">ایجاد کوپن تخفیف</a>
+                <a href="{{ route('admin.market.discount.commonDiscount.create') }}" class="btn btn-info btn-sm">ایجاد تخفیف عمومی</a>
                 <div class="max-width-16-rem">
                     <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                 </div>
@@ -36,37 +36,32 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>کد تخفیف</th>
-                            <th>میزان تخفیف</th>
-                            <th>نوع تخفیف</th>
+                            <th>درصد تخفیف</th>
                             <th>سقف تخفیف</th>
-                            <th>نوع کوپن</th>
+                            <th>عنوان مناسبت</th>
                             <th>تاریخ شروع</th>
                             <th>تاریخ پایان</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach ($copans as $copan)
+                        @foreach ($commonDiscounts as $commonDiscount)
 
                         <tr>
                             <th>{{ $loop->iteration }}</th>
-                            <th>{{ $copan->code }}</th>
-                            <th>{{ $copan->amount }}</th>
-                            <th>{{ $copan->amount_type == 0 ? 'درصدی' : 'عددی' }}</th>
-                            <th>{{ $copan->discount_ceiling ?? '-' }} </th>
-                            <th>{{ $copan->type == 0 ? 'عمومی' : 'خصوصی' }}</th>
-                            <td>{{ jalaliDate($copan->start_date) }}</td>
-                            <td>{{ jalaliDate($copan->end_date) }}</td>
+                            <th>{{ $commonDiscount->percentage }}%</th>
+                            <th>{{ $commonDiscount->discount_ceiling }} تومان</th>
+                            <th>{{ $commonDiscount->title }}</th>
+                            <td>{{ jalaliDate($commonDiscount->start_date) }}</td>
+                            <td>{{ jalaliDate($commonDiscount->end_date) }}</td>
                             <td class="width-16-rem text-left">
-                                <a href="{{ route('admin.market.discount.copan.edit', $copan->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline" action="{{ route('admin.market.discount.copan.destroy', $copan->id) }}" method="post">
+                                <a href="{{ route('admin.market.discount.commonDiscount.edit', $commonDiscount->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.market.discount.commonDiscount.destroy', $commonDiscount->id) }}" method="post">
                                     @csrf
                                     {{ method_field('delete') }}
                                 <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
                             </form>
-                            </td>
+                                </td>
                         </tr>
 
                         @endforeach
@@ -80,6 +75,7 @@
 </section>
 
 @endsection
+
 
 @section('script')
 

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>ایجاد کوپن تخفیف</title>
+<title>ایجاد تخفیف عمومی</title>
 <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 
@@ -11,8 +11,8 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}"> خانه </a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item font-size-12"> <a href="#">تخفیف ها</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد کوپن تخفیف</li>
+      <li class="breadcrumb-item font-size-12"> <a href="#">تخفیف</a></li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد تخفیف عمومی</li>
     </ol>
   </nav>
 
@@ -22,26 +22,29 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                  ایجاد کوپن تخفیف
+                  ایجاد تخفیف عمومی
                 </h5>
             </section>
 
             <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                <a href="{{ route('admin.market.discount.copan') }}" class="btn btn-info btn-sm">بازگشت</a>
+                <a href="{{ route('admin.market.discount.commonDiscount') }}" class="btn btn-info btn-sm">بازگشت</a>
             </section>
 
             <section>
-                <form action="{{ route('admin.market.discount.copan.store') }}" method="POST">
+                <form action="{{ route('admin.market.discount.commonDiscount.store') }}" method="POST">
                     @csrf
+
 
                     <section class="row">
 
+
+
                         <section class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="">کد کوپن</label>
-                                <input type="text" name="code" value="{{ old('code') }}"class="form-control form-control-sm">
+                                <label for="">درصد تخفیف</label>
+                                <input type="text" class="form-control form-control-sm" name="percentage" value="{{ old('percentage') }}">
                             </div>
-                            @error('code')
+                            @error('percentage')
                             <span class="alert_required text-danger p-1" role="alert">
                                 <strong>
                                     {{ $message }}
@@ -49,69 +52,6 @@
                             </span>
                         @enderror
                         </section>
-                        <section class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="">نوع کوپن</label>
-                                <select name="type" id="type" class="form-control form-control-sm">
-                                    <option value="0" @if(old('type') == 0) selected @endif>عمومی</option>
-                                    <option value="1" @if(old('type') == 1) selected @endif>خصوصی</option>
-                                </select>
-                            </div>
-                        </section>
-                         <section class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="">کاربران</label>
-                                <select name="user_id" id="users" class="form-control form-control-sm" disabled>
-                                    @foreach ($users as $user)
-
-                                    <option @if(old('user_id') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->fullName }}</option>
-
-                                    @endforeach
-
-                                </select>
-                            </div>
-                            @error('user_id')
-                            <span class="alert_required text-danger p-1" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
-                        </section>
-
-                        <section class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="">نوع تخفیف</label>
-                                <select name="amount_type" id="amount_type" class="form-control form-control-sm">
-                                    <option value="0" @if(old('amount_type') == 0) selected @endif>درصدی</option>
-                                    <option value="1" @if(old('amount_type') == 1) selected @endif>عددی</option>
-                                </select>
-                            </div>
-                            @error('amount_type')
-                            <span class="alert_required text-danger p-1" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
-                        </section>
-
-
-                        <section class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="">میزان تخفیف</label>
-                                <input type="text" name="amount" value="{{ old('amount') }}" class="form-control form-control-sm">
-                            </div>
-                            @error('amount')
-                            <span class="alert_required text-danger p-1" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
-                        </section>
-
-
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">حداکثر تخفیف</label>
@@ -125,7 +65,32 @@
                             </span>
                         @enderror
                         </section>
-
+                           <section class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="">حداقل مبلغ خرید</label>
+                                <input type="text" name="minimal_order_amount" value="{{ old('minimal_order_amount') }}" class="form-control form-control-sm">
+                            </div>
+                            @error('minimal_order_amount')
+                            <span class="alert_required text-danger p-1" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
+                        </section>
+                        <section class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="">عنوان مناسبت</label>
+                                <input type="text" name="title" value="{{ old('title') }}" class="form-control form-control-sm">
+                            </div>
+                            @error('title')
+                            <span class="alert_required text-danger p-1" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
+                        </section>
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">تاریخ شروع</label>
@@ -187,42 +152,23 @@
 
 @endsection
 
+
 @section('script')
 
-
-<script src="{{ asset('admin-assets/jalalidatepicker/persian-date.min.js') }}"></script>
-<script src="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.js') }}"></script>
-
-
-<script>
-        $(document).ready(function () {
-            $('#start_date_view').persianDatepicker({
-                format: 'YYYY/MM/DD',
-                altField: '#start_date'
-            }),
-             $('#end_date_view').persianDatepicker({
-                format: 'YYYY/MM/DD',
-                altField: '#end_date'
-            })
-        });
-</script>
+    <script src="{{ asset('admin-assets/jalalidatepicker/persian-date.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.js') }}"></script>
 
 
-<script>
-    $("#type").change(function(){
-
-    if($('#type').find(':selected').val() == '1') {
-        $('#users').removeAttr('disabled');
-    }
-    else{
-        $('#users').attr('disabled', 'disabled');
-
-    }
-
-});
-
-</script>
-
-
-
+    <script>
+            $(document).ready(function () {
+                $('#start_date_view').persianDatepicker({
+                    format: 'YYYY/MM/DD',
+                    altField: '#start_date'
+                }),
+                 $('#end_date_view').persianDatepicker({
+                    format: 'YYYY/MM/DD',
+                    altField: '#end_date'
+                })
+            });
+    </script>
 @endsection
