@@ -96,10 +96,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/unpaid', 'OrderController@unpaid')->name('admin.market.order.unpaid');
             Route::get('/canceled', 'OrderController@canceled')->name('admin.market.order.canceled');
             Route::get('/returned', 'OrderController@returned')->name('admin.market.order.returned');
-            Route::get('/show', 'OrderController@show')->name('admin.market.order.show');
-            Route::get('/change-send-status', 'OrderController@changeSendStatus')->name('admin.market.order.changeSendStatus');
-            Route::get('/change-order-status', 'OrderController@changeOrderStatus')->name('admin.market.order.changeOrderStatus');
-            Route::get('/cancel-order', 'OrderController@cancelOrder')->name('admin.market.order.cancelOrder');
+            Route::get('/show/{order}', 'OrderController@show')->name('admin.market.order.show');
+            Route::get('/show/{order}/detail', 'OrderController@detail')->name('admin.market.order.show.detail');
+            Route::get('/change-send-status/{order}', 'OrderController@changeSendStatus')->name('admin.market.order.changeSendStatus');
+            Route::get('/change-order-status/{order}', 'OrderController@changeOrderStatus')->name('admin.market.order.changeOrderStatus');
+            Route::get('/cancel-order/{order}', 'OrderController@cancelOrder')->name('admin.market.order.cancelOrder');
+
         });
         //Payment
         Route::prefix('payment')->group(function () {

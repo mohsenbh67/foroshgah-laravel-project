@@ -2,7 +2,6 @@
 
 namespace App\Models\Market;
 
-use App\Models\Market\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,9 +19,9 @@ class CategoryAttribute extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
-
     public function values()
     {
         return $this->hasMany(CategoryValue::class);
     }
+
 }

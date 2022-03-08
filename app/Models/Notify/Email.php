@@ -13,13 +13,12 @@ class Email extends Model
 
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['subject', 'status', 'body', 'published_at'];
 
-
-
+    protected $fillable = ['subject', 'body', 'status', 'published_at'];
 
     public function files(){
-
         return $this->hasMany(EmailFile::class, 'public_mail_id');
     }
+
+
 }

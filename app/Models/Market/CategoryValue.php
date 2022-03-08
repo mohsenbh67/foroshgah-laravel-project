@@ -2,9 +2,7 @@
 
 namespace App\Models\Market;
 
-use App\Models\Market\Product;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Market\CategoryAttribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SMS extends Model
 {
+
     protected $table = 'public_sms';
 
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'status', 'body', 'published_at'];
+
+    protected $fillable = ['title', 'body', 'status', 'published_at'];
+
+
 }

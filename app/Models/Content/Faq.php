@@ -2,27 +2,24 @@
 
 namespace App\Models\Content;
 
-use Illuminate\Database\Eloquent\Model;
+
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Faq extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
-    protected $fillable =['question','answer', 'slug', 'status', 'tags'];
-
-
-
     public function sluggable(): array
-   {
-
-        return [
-            'slug' => [
+    {
+        return[
+            'slug' =>[
                 'source' => 'question'
             ]
         ];
-
     }
+
+    protected $fillable = ['question', 'answer', 'slug', 'status', 'tags'];
 }
