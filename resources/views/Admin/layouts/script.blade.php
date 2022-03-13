@@ -4,3 +4,19 @@
 <script src="{{ asset('Admin-assets/js/grid.js') }}"></script>
 <script src="{{ asset('Admin-assets/select2-4.0.13/select2-4.0.13/dist/js/select2.min.js') }}"></script>
 <script src="{{ asset('Admin-assets/sweetalert/sweetalert2.min.js') }}"></script>
+
+<script>
+    let notificationDropdown = document.getElementById('header-notification-toggle');
+    notificationDropdown.addEventListener('click', function(){
+        console.log('yes');
+
+        $.ajax({
+            type : "POST",
+            url : '/admin/notification/read-all',
+            data : {_token: "{{ csrf_token() }}" },
+            success : function(){
+                console.log('yes');
+            }
+        })
+    });
+</script>

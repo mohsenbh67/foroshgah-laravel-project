@@ -368,6 +368,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('/edit/{setting}', 'SettingController@edit')->name('admin.setting.edit');
         Route::put('/update/{setting}', 'SettingController@update')->name('admin.setting.update');
     });
+
+
+    Route::post('/notification/read-all','NotificationController@readAll')->name('admin.notification.readAll');
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

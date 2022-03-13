@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\NewUserRegistered;
 use App\Http\Services\Image\ImageService;
 use App\Http\Requests\Admin\User\CustomerRequest;
 
@@ -55,6 +56,11 @@ class CustomerController extends Controller
         $inputs['user_type'] = 0;
         $inputs['password'] = Hash::make($request->password);
         $user = User::create($inputs);
+        $details = [
+            'message' => 'یک کاربر جدید در سایت ثبت نام کرد'
+        ];
+        $adminUser = User::find(1);
+        $adminUser->notify(new NewUserRegistered($details));
         return redirect()->route('admin.user.customer.index')->with('alert-section-success', 'مشتری شما با موفقیت ثبت شد');
     }
 
