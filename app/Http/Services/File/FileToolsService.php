@@ -37,6 +37,7 @@ class FileToolsService
     {
         $this->fileDirectory = trim($fileDirectory, '/\\');
     }
+
     public function getFileSize()
     {
         return $this->fileSize;
@@ -110,19 +111,19 @@ class FileToolsService
         //set properties
         $this->getFileDirectory() ?? $this->setFileDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
         $this->getFileName() ?? $this->setFileName(time());
-        $this->setFileFormat(pathinfo($this->file->getClientOriginalName(),PATHINFO_EXTENSION));
+        $this->setFileFormat(pathinfo($this->file->getClientOriginalName(), PATHINFO_EXTENSION));
 
 
-        //set final file Directory
+        //set final File Directory
         $finalFileDirectory = empty($this->getExclusiveDirectory()) ? $this->getFileDirectory() : $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getFileDirectory();
         $this->setFinalFileDirectory($finalFileDirectory);
 
 
-        //set final file name
+        //set final File name
         $this->setFinalFileName($this->getFileName() . '.' . $this->getFileFormat());
 
 
-        //check adn create final file directory
+        //check adn create final File directory
         $this->checkDirectory($this->getFinalFileDirectory());
     }
 
