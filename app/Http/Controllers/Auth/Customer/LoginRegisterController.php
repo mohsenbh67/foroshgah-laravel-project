@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
+use App\Http\Services\Message\MessageService;
+use App\Http\Services\Message\SMS\SmsService;
+use App\Http\Services\Message\Email\EmailService;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
 
 class LoginRegisterController extends Controller
@@ -31,7 +35,7 @@ class LoginRegisterController extends Controller
         }
 
         //check id is mobile or not
-        elseif(preg_match('/^(\+98|98|0)9\d{9}$', $inputs['id'])){
+        elseif(preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])){
             $type = 0; // 0 => mobile;
 
 
@@ -74,8 +78,35 @@ class LoginRegisterController extends Controller
 
         if($type == 0){
             //send sms
+            $smsService = new SMSService();
+            $smsService->setFrom(Config::get('sms.otp_from'));
+            $smsService->setTo(['0' . $user->mobile]);
+            $smsService->setText("مجموعه آمازون \n  کد تایید : $otpCode");
+            $smsService->setIsFlash(true);
+
+            $messagesService = new MessageService($smsService);
 
         }
+
+        elseif($type === 1){
+            $emailService = new EmailService();
+            $details = [
+                'title' => 'ایمیل فعال سازی',
+                'body' => "کد فعال سازی شما : $otpCode"
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom('noreply@example.com', 'Amazon');
+            $emailService->setSubject('کد احراز هویت');
+            $emailService->setTo($inputs['id']);
+
+            $messagesService = new MessageService($emailService);
+
+        }
+
+        $messagesService->send();
+
+
+
 
     }
 
