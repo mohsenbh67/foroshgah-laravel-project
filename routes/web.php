@@ -401,10 +401,11 @@ Route::namespace('Auth')->group(function(){
 });
 
 
+Route::namespace('customer')->group(function () {
 
-Route::get('/', function(){
-    return view('customer.home');
-})->name('customer.home');
+    Route::get('/', 'HomeController@home')->name('customer.home');
+
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
