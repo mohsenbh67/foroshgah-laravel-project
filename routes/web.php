@@ -101,8 +101,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/change-send-status/{order}', 'OrderController@changeSendStatus')->name('admin.market.order.changeSendStatus');
             Route::get('/change-order-status/{order}', 'OrderController@changeOrderStatus')->name('admin.market.order.changeOrderStatus');
             Route::get('/cancel-order/{order}', 'OrderController@cancelOrder')->name('admin.market.order.cancelOrder');
-
         });
+
+
+
+
+
         //Payment
         Route::prefix('payment')->group(function () {
             Route::get('/', 'PaymentController@index')->name('admin.market.payment.index');
@@ -112,7 +116,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/canceled/{payment}', 'PaymentController@canceled')->name('admin.market.payment.canceled');
             Route::get('/returned/{payment}', 'PaymentController@returned')->name('admin.market.payment.returned');
             Route::get('/show/{payment}', 'PaymentController@show')->name('admin.market.payment.show');
-
         });
         //Product
         Route::prefix('product')->group(function () {
@@ -127,7 +130,14 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/color/{product}', 'ProductColorController@index')->name('admin.market.color.index');
             Route::get('/color/{product}/create', 'ProductColorController@create')->name('admin.market.color.create');
             Route::post('/color/{product}/store', 'ProductColorController@store')->name('admin.market.color.store');
-            Route::delete('/color/destroy/{product}/{productColor}', 'ProductColorController@destroy')->name('admin.market.color.destroy');
+            Route::delete('/color/destroy/{product}/{color}', 'ProductColorController@destroy')->name('admin.market.color.destroy');
+
+            //guarantee
+            Route::get('/guarantee/{product}', 'GuaranteeController@index')->name('admin.market.guarantee.index');
+            Route::get('/guarantee/create/{product}', 'GuaranteeController@create')->name('admin.market.guarantee.create');
+            Route::post('/guarantee/store/{product}', 'GuaranteeController@store')->name('admin.market.guarantee.store');
+            Route::delete('/guarantee/destroy/{product}/{guarantee}', 'GuaranteeController@destroy')->name('admin.market.guarantee.destroy');
+
 
 
 
@@ -381,22 +391,20 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     });
 
 
-    Route::post('/notification/read-all','NotificationController@readAll')->name('admin.notification.readAll');
-
+    Route::post('/notification/read-all', 'NotificationController@readAll')->name('admin.notification.readAll');
 });
 
-Route::namespace('Auth')->group(function(){
+Route::namespace('Auth')->group(function () {
 
 
-    Route::namespace('Customer')->group(function(){
+    Route::namespace('Customer')->group(function () {
 
-    Route::get('login-register', 'LoginRegisterController@loginRegisterForm')->name('auth.customer.login-register-form');
-    Route::middleware('throttle:customer-login-register-limiter')->post('login-register', 'LoginRegisterController@loginRegister')->name('auth.customer.login-register');
-    Route::get('login-confirm/{token}', 'LoginRegisterController@loginConfirmForm')->name('auth.customer.login-confirm-form');
-    Route::middleware('throttle:customer-login-confirm-limiter')->post('login-confirm/{token}', 'LoginRegisterController@loginConfirm')->name('auth.customer.login-confirm');
-    Route::middleware('throttle:customer-login-resend-otp-limiter')->get('login-resend-otp/{token}', 'LoginRegisterController@loginResendOtp')->name('auth.customer.login-resend-otp');
-    Route::get('/logout', 'LoginRegisterController@logout')->name('auth.customer.logout');
-
+        Route::get('login-register', 'LoginRegisterController@loginRegisterForm')->name('auth.customer.login-register-form');
+        Route::middleware('throttle:customer-login-register-limiter')->post('login-register', 'LoginRegisterController@loginRegister')->name('auth.customer.login-register');
+        Route::get('login-confirm/{token}', 'LoginRegisterController@loginConfirmForm')->name('auth.customer.login-confirm-form');
+        Route::middleware('throttle:customer-login-confirm-limiter')->post('login-confirm/{token}', 'LoginRegisterController@loginConfirm')->name('auth.customer.login-confirm');
+        Route::middleware('throttle:customer-login-resend-otp-limiter')->get('login-resend-otp/{token}', 'LoginRegisterController@loginResendOtp')->name('auth.customer.login-resend-otp');
+        Route::get('/logout', 'LoginRegisterController@logout')->name('auth.customer.logout');
     });
 });
 
@@ -404,7 +412,6 @@ Route::namespace('Auth')->group(function(){
 Route::namespace('customer')->group(function () {
 
     Route::get('/', 'HomeController@home')->name('customer.home');
-
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
